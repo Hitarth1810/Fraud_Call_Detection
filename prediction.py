@@ -5,10 +5,10 @@ import pickle
 
 # Load the trained model and vectorizer
 
-with open(r'C:\AI Models\fraud detection\trained_model.pkl', 'rb') as file:
+with open(r'trained_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-with open(r'C:\AI Models\fraud detection\vectorizer.pkl', 'rb') as file:
+with open(r'vectorizer.pkl', 'rb') as file:
     vectorizer = pickle.load(file)
 
 # Initialize the recognizer
@@ -21,7 +21,7 @@ try:
             # Use the microphone as the source for input
             with sr.Microphone() as source2:
                 # Adjust the energy threshold based on surrounding noise
-                r.adjust_for_ambient_noise(source2, duration=3)
+                r.adjust_for_ambient_noise(source2, duration=2)
 
                 # Listen for the user's input
                 audio2 = r.listen(source2)
@@ -35,9 +35,9 @@ try:
                 prediction = model.predict(text_to_predict)
 
                 if prediction[0] == 1:
-                    print("Prediction: Fraudulent call 🚨")
+                    print("Prediction: Fraudulent call ")
                 else:
-                    print("Prediction: Normal call ✅")
+                    print("Prediction: Normal call ")
 
         except sr.RequestError as e:
             print(f"Could not request results; {e}")
@@ -46,4 +46,4 @@ try:
             print("Unknown error occurred (speech not recognized)")
 
 except KeyboardInterrupt:
-    print("\nExiting... Goodbye! 👋")
+    print("\nExiting... Goodbye! ")
